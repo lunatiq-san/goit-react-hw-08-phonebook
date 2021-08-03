@@ -1,4 +1,4 @@
-import { Component, useState } from 'react';
+import { useState } from 'react';
 import styles from './ContactForm.module.css';
 
 function ContactForm({ onSubmit }) {
@@ -12,9 +12,11 @@ function ContactForm({ onSubmit }) {
       case 'name':
         setName(value);
         break;
+
       case 'number':
         setNumber(value);
         break;
+
       default:
         return;
     }
@@ -23,7 +25,8 @@ function ContactForm({ onSubmit }) {
   const handleSubmit = event => {
     event.preventDefault();
 
-    onSubmit(name, number);
+    const options = { name, number };
+    onSubmit(options);
     reset();
   };
 
