@@ -47,7 +47,6 @@ function App() {
   const getVisibleContacts = () => {
     const normalizedFilter = filter.toLowerCase();
 
-    console.log(contacts);
     return contacts.filter(({ name }) =>
       name.toLowerCase().includes(normalizedFilter),
     );
