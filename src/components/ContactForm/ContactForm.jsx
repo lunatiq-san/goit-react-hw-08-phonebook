@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
 import styles from './ContactForm.module.css';
+import contactsActions from '../../redux/contacts/contacts-actions';
 
 function ContactForm({ onSubmit }) {
   const [name, setName] = useState('');
@@ -71,4 +73,9 @@ function ContactForm({ onSubmit }) {
   );
 }
 
-export default ContactForm;
+const mapDispatchToProps = dispatch => ({
+  onSubmit: contact => dispatch(contactsActions.addContact(contact)),
+});
+
+// null - вместо mapStateToProps
+export default connect(null, mapDispatchToProps)(ContactForm);
