@@ -41,5 +41,5 @@
 ### Шаг 2
 
 Выполни рефакторинг кода и сократи Redux-бойлерплейт используя библиотеку
-[Redux Toolkit](https://redux-toolkit.js.org/). Используй функции
+[Redux Toolkit](https://redux-toolkit.js.org/). Используй функции ✅
 `configureStore()`, `createAction()` и `createReducer()`.
