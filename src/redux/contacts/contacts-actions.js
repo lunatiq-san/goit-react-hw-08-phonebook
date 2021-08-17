@@ -1,7 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { v4 } from 'uuid';
 
-// v2
 const addContact = createAction('contacts/add', ({ name, number }) => ({
   payload: {
     id: v4(),

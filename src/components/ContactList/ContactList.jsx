@@ -41,15 +41,6 @@ const getVisibleContacts = (allContats, filter) => {
   );
 };
 
-// const mapStateToProps = state => {
-//   const { filter, items } = state.contacts;
-//   const visibleContacts = getVisibleContacts(items, filter);
-
-//   return {
-//     contacts: visibleContacts,
-//   };
-// };
-
 const mapStateToProps = ({ contacts: { filter, items } }) => ({
   contacts: getVisibleContacts(items, filter),
 });
@@ -59,3 +50,13 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+
+// v1
+// const mapStateToProps = state => {
+//   const { filter, items } = state.contacts;
+//   const visibleContacts = getVisibleContacts(items, filter);
+
+//   return {
+//     contacts: visibleContacts,
+//   };
+// };
