@@ -1,8 +1,8 @@
 import logger from 'redux-logger';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import {
-  persistStore,
-  persistReducer,
+  // persistStore,
+  // persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -10,8 +10,11 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import contactsReducer from './contacts/contacts-reducer';
+
+const myMiddleware = store => next => action => {
+  next(action);
+};
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -19,43 +22,25 @@ const middleware = [
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
+  myMiddleware,
   logger,
 ];
 
-const contactsPersistConfig = {
-  key: 'contacts',
-  storage,
-  blacklist: ['filter'],
-};
-// v3
+// const contactsPersistConfig = {
+//   key: 'contacts',
+//   storage,
+//   blacklist: ['filter'],
+// };
+
 const store = configureStore({
   reducer: {
-    contacts: persistReducer(contactsPersistConfig, contactsReducer),
+    contacts: contactsReducer,
   },
   middleware,
   devtools: process.env.NODE_ENV === 'development',
 });
 
-const persistor = persistStore(store);
+// const persistor = persistStore(store);
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { store, persistor };
-
-// v1
-// const initialState = {};
-// // Функция, принимает предидущее состояние (state), действие (action)
-// const reducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     // case 'name':
-
-//     default:
-//       return state;
-//   }
-
-//   // возвращает новое состояние
-//   return state;
-// };
-
-// v2
-// store - хранилище
-// const store = createStore(rootReducer, composeWithDevTools());
+export default store;
