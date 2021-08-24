@@ -1,48 +1,50 @@
-import { connect } from 'react-redux';
-import contactsOperations from 'redux/contacts/contacts-operations';
-import PropTypes from 'prop-types';
+import { useDispatch, connect } from 'react-redux';
+import { useEffect } from 'react';
+import { contactsSelectors, contactsOperations } from 'redux/contacts';
+import Loader from 'react-loader-spinner';
 import styles from './ContactList.module.css';
 
-const ContactList = ({ contacts, onDeleteContact }) => {
+const ContactList = ({ contacts, onDeleteContact, isLoadingContacts }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(contactsOperations.fetchContacts());
+  }, [dispatch]);
+
   return (
-    <ul className={styles.list}>
-      {contacts.map(({ id, name, number }) => (
-        <li className={styles.item} name={name} key={id}>
-          {name}: {number}
-          <button
-            className={styles.btn}
-            type="button"
-            onClick={() => onDeleteContact(id)}
-          >
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
+    <>
+      {isLoadingContacts && (
+        <Loader
+          type="Puff"
+          color="#00BFFF"
+          height={50}
+          width={50}
+          className="loader"
+        />
+      )}
+      {
+        <ul className={styles.list}>
+          {contacts.map(({ id, name, number }) => (
+            <li className={styles.item} name={name} key={id}>
+              {name}: {number}
+              <button
+                className={styles.btn}
+                type="button"
+                onClick={() => onDeleteContact(id)}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      }
+    </>
   );
 };
 
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  onDeleteContact: PropTypes.func.isRequired,
-};
-
-const getVisibleContacts = (allContats, filter) => {
-  const normalizedFilter = filter.toLowerCase();
-
-  return allContats.filter(({ name }) =>
-    name.toLowerCase().includes(normalizedFilter),
-  );
-};
-
-const mapStateToProps = ({ contacts: { filter, items } }) => ({
-  contacts: getVisibleContacts(items, filter),
+const mapStateToProps = state => ({
+  contacts: contactsSelectors.getVisibleContacts(state),
+  isLoadingContacts: contactsSelectors.getLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({

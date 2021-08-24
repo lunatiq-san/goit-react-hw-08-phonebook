@@ -22,3 +22,8 @@
 
   cursor: pointer;
 }
+
+.loader {
+  display: block;
+  text-align: center;
+}

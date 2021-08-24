@@ -6,10 +6,24 @@ import {
   deleteContactRequest,
   deleteContactSuccess,
   deleteContactError,
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsError,
 } from './contacts-actions';
 
 axios.defaults.baseURL = ' http://localhost:4040';
 
+const fetchContacts = () => dispatch => {
+  dispatch(fetchContactsRequest());
+
+  axios
+    .get('/contacts')
+    .then(({ data }) => {
+      console.log(data);
+      dispatch(fetchContactsSuccess(data));
+    })
+    .catch(error => dispatch(fetchContactsError(error)));
+};
 // dispatch функцию, которая выполняется
 // const asyncActionCreator = args => dispatch => {};
 const addContact =
@@ -33,4 +47,5 @@ const deleteContact = id => dispatch => {
     .catch(error => dispatch(deleteContactError(error)));
 };
 
-export default { addContact, deleteContact };
+// eslint-disable-next-line import/no-anonymous-default-export
+export default { addContact, deleteContact, fetchContacts };
