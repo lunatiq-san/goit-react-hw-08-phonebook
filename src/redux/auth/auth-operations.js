@@ -42,10 +42,10 @@ const fetchCurrentUser = createAsyncThunk(
     const persistedToken = state.auth.token;
 
     if (persistedToken === null) {
-      console.log('Token not found, leave with fetchCurrentUser');
       return thunkAPI.rejectWithValue();
     }
 
+    token.set(persistedToken);
     try {
       const { data } = await axios.get('/users/current');
       return data;
