@@ -16,4 +16,4 @@ const getVisibleContacts = createSelector(
 );
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getLoading, getFilter, getVisibleContacts };
+export default { getLoading, getFilter, getAllContacts, getVisibleContacts };

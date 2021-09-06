@@ -1,11 +1,15 @@
-import { useDispatch, connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { contactsSelectors, contactsOperations } from 'redux/contacts';
 import Loader from 'react-loader-spinner';
 import styles from './ContactList.module.css';
 
-const ContactList = ({ contacts, onDeleteContact, isLoadingContacts }) => {
+const ContactList = () => {
+  const contacts = useSelector(contactsSelectors.getVisibleContacts);
+  const isLoadingContacts = useSelector(contactsSelectors.getLoading);
   const dispatch = useDispatch();
+
+  const onDeleteContact = id => dispatch(contactsOperations.deleteContact(id));
 
   useEffect(() => {
     dispatch(contactsOperations.fetchContacts());
@@ -42,13 +46,4 @@ const ContactList = ({ contacts, onDeleteContact, isLoadingContacts }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  contacts: contactsSelectors.getVisibleContacts(state),
-  isLoadingContacts: contactsSelectors.getLoading(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  onDeleteContact: id => dispatch(contactsOperations.deleteContact(id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+export default ContactList;
