@@ -1,30 +1,28 @@
-// import Container from 'components/Container';
-// import ContactForm from 'components/ContactForm';
-// import ContactList from 'components/ContactList';
-// import Filter from 'components/Filter';
-
-// function App() {
-//   return (
-//     <Container>
-//       <h1>Phonebook</h1>
-//       <ContactForm />
-//       <h2>Contacts</h2>
-//       <Filter />
-//       <ContactList />
-//     </Container>
-//   );
-// }
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 // import './App.css';
-import { useEffect } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import { useDispatch } from 'react-redux';
 import AppBar from 'components/AppBar';
 import Container from 'components/Container';
-import HomePage from 'pages/HomePage';
-import RegisterPage from 'pages/RegisterPage';
-import LoginPage from 'pages/LoginPage';
-import ContactsPage from 'pages/ContactsPage';
+// import HomePage from 'pages/HomePage';
+// import LoginPage from 'pages/LoginPage';
+// import ContactsPage from 'pages/ContactsPage';
 import { authOperations } from './redux/auth';
+import PrivateRoute from 'components/Routes/PrivateRoute';
+import PublicRoute from 'components/Routes/PublicRoute';
+
+const HomePage = lazy(() =>
+  import('pages/HomePage' /* webpackChunkName "home-page" */),
+);
+const RegisterPage = lazy(() =>
+  import('pages/RegisterPage' /* webpackChunkName "register-page" */),
+);
+const LoginPage = lazy(() =>
+  import('pages/LoginPage' /* webpackChunkName "login-page" */),
+);
+const ContactsPage = lazy(() =>
+  import('pages/ContactsPage' /* webpackChunkName "contacts-page" */),
+);
 
 function App() {
   const dispatch = useDispatch();
@@ -37,12 +35,25 @@ function App() {
     <Container>
       <AppBar />
 
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/contacts" component={ContactsPage} />
-      </Switch>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Switch>
+          <PublicRoute exact path="/">
+            <HomePage />
+          </PublicRoute>
+
+          <PublicRoute exact path="/register" restricted>
+            <RegisterPage />
+          </PublicRoute>
+
+          <PublicRoute exact path="/login" restricted redirectTo="/contacts">
+            <LoginPage />
+          </PublicRoute>
+
+          <PrivateRoute path="/contacts" redirectTo="/login">
+            <ContactsPage />
+          </PrivateRoute>
+        </Switch>
+      </Suspense>
     </Container>
   );
 }
