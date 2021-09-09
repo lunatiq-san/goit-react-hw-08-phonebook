@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { authOperations } from '../redux/auth';
+
+import Button from '@material-ui/core/Button';
 import styles from './Pages.module.css';
 
 export default function RegisterPage() {
@@ -32,16 +34,16 @@ export default function RegisterPage() {
 
   return (
     <div>
-      <h1>Страница регистрации</h1>
+      <h1 className={styles.title}>Registration form</h1>
 
       <form onSubmit={handleSubmit} className={styles.form} autoComplete="off">
         <label className={styles.label}>
-          Имя
+          Name
           <input type="text" name="name" value={name} onChange={handleChange} />
         </label>
 
         <label className={styles.label}>
-          Почта
+          Email
           <input
             type="email"
             name="email"
@@ -51,7 +53,7 @@ export default function RegisterPage() {
         </label>
 
         <label className={styles.label}>
-          Пароль
+          Password
           <input
             type="password"
             name="password"
@@ -60,7 +62,9 @@ export default function RegisterPage() {
           />
         </label>
 
-        <button type="submit">Зарегистрироваться</button>
+        <Button variant="contained" type="submit">
+          Sign up
+        </Button>
       </form>
     </div>
   );

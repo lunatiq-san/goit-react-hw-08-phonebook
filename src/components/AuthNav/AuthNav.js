@@ -2,6 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './AuthNav.module.css';
 
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 export default function AuthNav() {
   return (
     <div>
@@ -11,7 +13,7 @@ export default function AuthNav() {
         className={styles.link}
         activeClassName={styles.activeLink}
       >
-        Регистрация
+        Sign up
       </NavLink>
       <NavLink
         to="/login"
@@ -19,7 +21,8 @@ export default function AuthNav() {
         className={styles.link}
         activeClassName={styles.activeLink}
       >
-        Логин
+        Log in
+        <ExitToAppIcon className={styles.icon} />
       </NavLink>
     </div>
   );

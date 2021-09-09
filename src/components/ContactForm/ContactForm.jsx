@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { contactsOperations, contactsSelectors } from 'redux/contacts';
 import { useDispatch, useSelector } from 'react-redux';
+
+import Button from '@material-ui/core/Button';
+import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import styles from './ContactForm.module.css';
 
 function ContactForm() {
@@ -80,9 +83,14 @@ function ContactForm() {
         />
       </label>
 
-      <button className={styles.btn} type="submit">
+      <Button
+        variant="contained"
+        color="default"
+        startIcon={<ContactPhoneIcon />}
+        type="submit"
+      >
         Add contact
-      </button>
+      </Button>
     </form>
   );
 }

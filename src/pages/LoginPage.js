@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { authOperations } from '../redux/auth';
+
+import Button from '@material-ui/core/Button';
 import styles from './Pages.module.css';
 
 export default function LoginPage() {
@@ -27,12 +29,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <h1>Страница логина</h1>
-
+    <div className={styles.formContainer}>
       <form onSubmit={handleSubmit} className={styles.form} autoComplete="off">
         <label className={styles.label}>
-          Почта
+          Email
           <input
             type="email"
             name="email"
@@ -42,7 +42,7 @@ export default function LoginPage() {
         </label>
 
         <label className={styles.label}>
-          Пароль
+          Password
           <input
             type="password"
             name="password"
@@ -51,7 +51,10 @@ export default function LoginPage() {
           />
         </label>
 
-        <button type="submit">Войти</button>
+        <Button variant="contained" type="submit">
+          Log in
+        </Button>
+        {/* <button type="submit">Войти</button> */}
       </form>
     </div>
   );

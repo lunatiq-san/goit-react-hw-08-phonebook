@@ -1,5 +1,15 @@
+:root {
+  --primaryTextColor: #ffdf05;
+  --primaryLightColor: #eeeeee;
+  --accentColor: #8c91b3;
+  --bgColor: #303964;
+}
+
 body {
   margin: 0;
+
+  background-image: url('./img/bg.jpg');
+
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

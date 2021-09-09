@@ -2,22 +2,41 @@
   width: 320;
 }
 
+.formContainer {
+  padding: 20px;
+}
+
 .label {
-  display: flex;
-  flex-direction: column;
+  display: block;
   margin-bottom: 15px;
+  color: var(--primaryLightColor);
 }
 
 .title {
   font-weight: 500;
-  font-size: 48px;
+  font-size: 40px;
+  color: var(--primaryLightColor);
   text-align: center;
+}
+
+.contactsTitle {
+  color: var(--primaryTextColor);
+}
+
+.text {
+  font-size: 25px;
+  color: var(--primaryTextColor);
+}
+
+.dedicated {
+  font-weight: 600;
 }
 
 input {
   display: block;
-  width: 50%;
+  width: 60%;
   height: 40px;
+  margin-top: 20px;
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
@@ -26,4 +45,35 @@ input {
   text-align: center;
 
   border-radius: 5px;
+  background-color: var(--primaryLightColor);
+}
+
+input:focus {
+  outline-color: var(--accentColor);
+  box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff,
+    0 0 20px var(--primaryLightColor), 0 0 15px var(--primaryLightColor),
+    0 0 30px var(--primaryLightColor), 0 0 20px var(--primaryLightColor),
+    0 0 5px var(--primaryLightColor);
+  animation-name: pulsate;
+  animation-duration: 1000ms;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes pulsate {
+  0% {
+    box-shadow: 0 0 1px var(--primaryLightColor),
+      0 0 2px var(--primaryLightColor), 0 0 3px var(--primaryLightColor),
+      0 0 4px var(--primaryTextColor), 0 0 3px var(--primaryTextColor),
+      0 0 6px var(--primaryTextColor), 0 0 4px var(--primaryTextColor),
+      0 0 1px var(--primaryTextColor);
+  }
+  100% {
+    box-shadow: 0 0 5px var(--primaryLightColor),
+      0 0 10px var(--primaryLightColor), 0 0 15px var(--primaryLightColor),
+      0 0 20px var(--primaryTextColor), 0 0 15px var(--primaryTextColor),
+      0 0 30px var(--primaryTextColor), 0 0 20px var(--primaryTextColor),
+      0 0 5px var(--primaryTextColor);
+  }
 }
