@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './Pages.module.css';
 
-// import { EmojiPeopleIcon } from '@material-ui/icons';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import { yellow } from '@material-ui/core/colors';
 

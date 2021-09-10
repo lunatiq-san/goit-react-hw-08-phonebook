@@ -24,7 +24,7 @@ const ContactList = () => {
       {isLoadingContacts && (
         <Loader
           type="Puff"
-          color="#00BFFF"
+          color="#8c91b3"
           height={50}
           width={50}
           className="loader"

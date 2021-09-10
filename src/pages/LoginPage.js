@@ -54,7 +54,6 @@ export default function LoginPage() {
         <Button variant="contained" type="submit">
           Log in
         </Button>
-        {/* <button type="submit">Войти</button> */}
       </form>
     </div>
   );

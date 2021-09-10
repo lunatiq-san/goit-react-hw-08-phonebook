@@ -1,15 +1,14 @@
 import { Switch } from 'react-router-dom';
-// import './App.css';
 import { useEffect, Suspense, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AppBar from 'components/AppBar';
 import Container from 'components/Container';
-// import HomePage from 'pages/HomePage';
-// import LoginPage from 'pages/LoginPage';
-// import ContactsPage from 'pages/ContactsPage';
 import { authOperations, authSelectors } from './redux/auth';
 import PrivateRoute from 'components/Routes/PrivateRoute';
 import PublicRoute from 'components/Routes/PublicRoute';
+
+import './index.css';
+import Loader from 'react-loader-spinner';
 
 const HomePage = lazy(() =>
   import('pages/HomePage' /* webpackChunkName "home-page" */),
@@ -39,7 +38,17 @@ function App() {
       <Container>
         <AppBar />
 
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense
+          fallback={
+            <Loader
+              type="ThreeDots"
+              color="#8c91b3"
+              height={50}
+              width={50}
+              timeout={3000} //3 secs
+            />
+          }
+        >
           <Switch>
             <PublicRoute exact path="/">
               <HomePage />
